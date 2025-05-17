@@ -32,47 +32,116 @@
 // sum = a * b;
 // console.log(sum);
 
-let sentence = prompt("Enter a sentence that ends with a period (.)");
+// let sentence = prompt("Enter a sentence that ends with a period (.)");
 
-// Initialize counters
-let charCount = 0;
-let wordCount = 0;
-let vowelCount = 0;
+// // Initialize counters
+// let charCount = 0;
+// let wordCount = 0;
+// let vowelCount = 0;
 
-// Define vowels
-const vowels = "aeiouAEIOU";
+// // Define vowels
+// const vowels = "aeiouAEIOU";
 
-// Flags
-let inWord = false;
+// // Flags
+// let inWord = false;
 
-for (let i = 0; i < sentence.length; i++) {
-  let ch = sentence[i];
+// for (let i = 0; i < sentence.length; i++) {
+//   let ch = sentence[i];
 
-  // Increment character count
-  charCount++;
+//   // Increment character count
+//   charCount++;
 
-  // Count vowels
-  if (vowels.includes(ch)) {
-    vowelCount++;
+//   // Count vowels
+//   if (vowels.includes(ch)) {
+//     vowelCount++;
+//   }
+
+//   // Word counting logic
+//   if (ch !== " " && ch !== ".") {
+//     if (!inWord) {
+//       wordCount++;
+//       inWord = true;
+//     }
+//   } else {
+//     inWord = false;
+//   }
+
+//   // Stop processing after period
+//   if (ch === ".") {
+//     break;
+//   }
+// }
+
+// // Display results
+// console.log("Length of the sentence:", charCount);
+// console.log("Number of words:", wordCount);
+// console.log("Number of vowels:", vowelCount);
+
+function sumOfDistinctElements(set1, set2) {
+  let sum = 0;
+
+  // Helper function to check if an element is in an array
+  function notInArray(element, array) {
+    return !array.includes(element);
   }
 
-  // Word counting logic
-  if (ch !== " " && ch !== ".") {
-    if (!inWord) {
-      wordCount++;
-      inWord = true;
+  // Add elements from set1 that are not in set2
+  for (let i = 0; i < set1.length; i++) {
+    if (notInArray(set1[i], set2)) {
+      sum += set1[i];
     }
-  } else {
-    inWord = false;
   }
 
-  // Stop processing after period
-  if (ch === ".") {
-    break;
+  // Add elements from set2 that are not in set1
+  for (let i = 0; i < set2.length; i++) {
+    if (notInArray(set2[i], set1)) {
+      sum += set2[i];
+    }
+  }
+
+  return sum;
+}
+
+// Example usage
+let set1 = [3, 1, 7, 9];
+let set2 = [2, 4, 1, 9, 3];
+console.log("Sum of distinct elements:", sumOfDistinctElements(set1, set2)); // Output: 13
+
+function dot_product(v1, v2) {
+  let ps = 0;
+  for (let i = 0; i < v1.length; i++) {
+    ps += v1[i] * v2[i];
+  }
+  return ps;
+}
+
+function checkOrthogonality(vectorPairs) {
+  for (let i = 0; i < vectorPairs.length; i++) {
+    let [v1, v2] = vectorPairs[i];
+    let product = dot_product(v1, v2);
+
+    if (product === 0) {
+      console.log(`Pair ${i + 1}: Vectors are orthogonal.`);
+    } else {
+      console.log(`Pair ${i + 1}: Vectors are not orthogonal.`);
+    }
   }
 }
 
-// Display results
-console.log("Length of the sentence:", charCount);
-console.log("Number of words:", wordCount);
-console.log("Number of vowels:", vowelCount);
+// Example usage
+let vectorPairs = [
+  [
+    [1, 0],
+    [0, 1],
+  ], // orthogonal
+  [
+    [2, 3],
+    [4, 5],
+  ], // not orthogonal
+  [
+    [1, -1],
+    [1, 1],
+  ], // orthogonal
+];
+
+checkOrthogonality(vectorPairs);
